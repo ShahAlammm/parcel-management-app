@@ -9,7 +9,7 @@ const Banner = () => {
           backgroundImage: "url(https://i.ibb.co/f9FDs29/bn.jpg)",
         }}
       >
-        <div className="hero-overlay bg-opacity-60 bg-[#7A7A7A]"></div>
+        <div className="hero-overlay bg-opacity-60 bg-black"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="hero-content flex-col lg:flex-row gap-10">
             <div className="text-center lg:text-left space-y-6">

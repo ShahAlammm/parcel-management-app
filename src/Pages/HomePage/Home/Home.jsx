@@ -3,6 +3,7 @@ import Banner from "../Banner/Banner";
 import phone from "../../../assets/phone.json";
 import FeaturesSection from "../FeaturesSection/FeaturesSection";
 import StatisticsCards from "../StatisticsCards/StatisticsCards";
+import ParcelMan from "../ParcelMan/ParcelMan";
 const Home = () => {
   return (
     <div>
@@ -31,7 +32,7 @@ const Home = () => {
         </div>
         <FeaturesSection></FeaturesSection>
         <StatisticsCards></StatisticsCards>
-      
+        <ParcelMan></ParcelMan>
     </div>
   );
 };

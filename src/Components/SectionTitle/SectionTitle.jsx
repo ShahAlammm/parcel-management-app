@@ -3,7 +3,7 @@ import shift from "../../assets/shift.json";
 
 const SectionTitle = ({ heading }) => {
   return (
-    <div className="m-10 md:w-4/12 text-center mx-auto mt-24">
+    <div className="mb-10 md:w-4/12 text-center mx-auto">
       <p className="text-lg m-2">
         <span className="italic font-serif">
           <Lottie animationData={shift}></Lottie>

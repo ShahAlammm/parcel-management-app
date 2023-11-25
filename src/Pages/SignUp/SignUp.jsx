@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 
 const SignUp = () => {
   const axiosPublic = useAxiosPublic();
+  
   const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const {
