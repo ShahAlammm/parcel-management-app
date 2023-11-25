@@ -13,6 +13,7 @@ const ParcelForm = () => {
   //   Handle submit
   const onSubmit = async (data) => {
     data.email = user.email;
+    data.status = "pending";
     console.log("Form submitted:", data);
     const res = await axiosSecure.post("/bookings", data);
     if (res.data.acknowledged === true) {

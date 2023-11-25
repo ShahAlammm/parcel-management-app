@@ -18,7 +18,7 @@ const MyParcel = () => {
   return (
     <div>
       <SectionTitle heading={"My Bookings"}></SectionTitle>
-      <div>
+      <div className=" grid xl:grid-cols-2 gap-5">
         {items.map((item) => (
          <ParcelCard key={item._id} item={item}></ParcelCard>
         ))}
