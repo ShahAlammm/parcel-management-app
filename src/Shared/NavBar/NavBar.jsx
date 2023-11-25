@@ -2,8 +2,17 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo-3.json";
 import Lottie from "lottie-react";
+import useAuth from "../../hooks/useAuth";
+import { FaUserCircle } from "react-icons/fa";
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,7 +31,7 @@ const NavBar = () => {
         <NavLink
           to="/"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active" : ""
+            isPending ? "pending" : isActive ? "bg-yellow-400" : ""
           }
         >
           Home
@@ -32,7 +41,7 @@ const NavBar = () => {
         <NavLink
           to="/menu"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active" : ""
+            isPending ? "pending" : isActive ? "bg-yellow-400" : ""
           }
         >
           Our Menu
@@ -40,23 +49,23 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/menu"
+          to="/dashboard"
           className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active" : ""
+            isPending ? "pending" : isActive ? "bg-yellow-400" : ""
           }
         >
-          Order
+          Dashboard
         </NavLink>
       </li>
     </>
   );
   return (
-    <div className=" bg-white container m-auto">
+    <div className=" bg-[#26DEBE] container m-auto">
       <div
         className="navbar container m-auto"
         style={{
           position: "fixed",
-          backgroundColor: isScrolled ? "#FFFFFF" : "transparent",
+          backgroundColor: isScrolled ? "#26DEBE" : "transparent",
           borderRadius: isScrolled ? "999px" : "0",
           zIndex: 1000,
         }}
@@ -96,35 +105,50 @@ const NavBar = () => {
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navLink}</ul>
+          <ul className="menu menu-horizontal px-1 font-bold">{navLink}</ul>
         </div>
         <div className="navbar-end">
           <details className="dropdown">
             <summary className="btn btn-ghost m-1">
               <div>
                 <div tabIndex={0}>
-                  <div className="avatar">
-                    <div className="w-12 rounded-full">
-                      <img src="" />
+                  {user?.photoURL ? (
+                    <div className="avatar">
+                      <div className="w-12 rounded-full">
+                        <img src={user?.photoURL} />
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <FaUserCircle className="text-4xl"></FaUserCircle>
+                  )}
                 </div>
               </div>
             </summary>
-            <ul
-              tabIndex={0}
-              className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-36 md:w-44"
-            >
-              <li>
-                <Link to="myFood"> My Added Food Items</Link>
-              </li>
-              <li>
-                <Link to="addFood">Add a Food Item</Link>
-              </li>
-              <li>
-                <Link to="myOrder">LogOut</Link>
-              </li>
-            </ul>
+            {user ? (
+              <ul
+                tabIndex={0}
+                className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-30 md:w-36"
+              >
+                <li>
+                  <p className="font-semibold">{user?.displayName}</p>
+                </li>
+                <li>
+                  <Link to="/dashboard" className="font-semibold">
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogOut}
+                    className="bg-red-500 text-white font-semibold"
+                  >
+                    LogOut
+                  </button>
+                </li>
+              </ul>
+            ) : (
+              ""
+            )}
           </details>
           <div>
             <label className="cursor-pointer grid place-items-center">
@@ -164,7 +188,13 @@ const NavBar = () => {
               </svg>
             </label>
           </div>
-          <Link to={'/login'}><button className="btn">Login</button></Link>
+          {user ? (
+            ""
+          ) : (
+            <Link to={"/login"}>
+              <button className="btn bg-yellow-400 font-bold m-1">Login</button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

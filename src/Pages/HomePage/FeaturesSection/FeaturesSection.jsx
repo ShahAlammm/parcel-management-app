@@ -5,38 +5,35 @@ import safety from "../../../assets/safely.json";
 import author from "../../../assets/authorise.json";
 const FeaturesSection = () => {
   return (
-    <div className="container m-auto">
+    <div className="container m-auto ">
       <SectionTitle heading={"our features"}></SectionTitle>
-      <div className="md:flex gap-20 justify-center items-center">
-        <div className="card text-center">
-          <div className="rounded-full w-96">
+      <div className="grid  items-center  justify-center gap-5 lg:grid-cols-3">
+        <div className="card">
+          <figure>
             <Lottie animationData={fast}></Lottie>
+          </figure>
+          <div className="card-body items-center text-center">
+            <h2 className="card-title font-bold text-4xl">Super Fast Delivery</h2>
+            <p>If a dog chews shoes whose shoes does he choose?</p>
           </div>
-          <h2 className="text-3xl font-extrabold">Super Fast Delivery</h2>
-          <p className="max-w-sm">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet
-            recusandae repellat debitis
-          </p>
         </div>
-        <div className="card text-center">
-          <div className="rounded-full  w-96">
+        <div className="card">
+          <figure>
             <Lottie animationData={safety}></Lottie>
+          </figure>
+          <div className="card-body items-center text-center">
+            <h2 className="card-title font-bold text-4xl">Parcel Safety</h2>
+            <p>If a dog chews shoes whose shoes does he choose?</p>
           </div>
-          <h2 className="text-3xl font-extrabold">Parcel Safety</h2>
-          <p className="max-w-sm">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet
-            recusandae repellat debitis commodi
-          </p>
         </div>
-        <div className="card text-center">
-          <div className="rounded-full w-96">
+        <div className="card">
+          <figure>
             <Lottie animationData={author}></Lottie>
+          </figure>
+          <div className="card-body items-center text-center">
+            <h2 className="card-title font-bold text-4xl">Verify Author</h2>
+            <p>If a dog chews shoes whose shoes does he choose?</p>
           </div>
-          <h2 className="text-3xl font-extrabold">Verify Author</h2>
-          <p className="max-w-sm">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet
-            recusandae repellat debitis commodi
-          </p>
         </div>
       </div>
     </div>

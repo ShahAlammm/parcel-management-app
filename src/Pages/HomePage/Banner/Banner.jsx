@@ -32,7 +32,7 @@ const Banner = () => {
                   </div>
                 </div>
                 <div className="indicator">
-                  <button className="btn btn-primary">Search</button>
+                  <button className="btn bg-[#26DEBE]">Search</button>
                 </div>
               </div>
             </div>

@@ -1,7 +1,43 @@
+import Swal from "sweetalert2";
+import SocialLogin from "../../Components/SectionTitle/SocialLogin";
 import img from "../../assets/authentication.gif";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const { signIn } = useAuth();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/";
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signIn(email, password).then(() => {
+      Swal.fire({
+        title: "Custom animation with Animate.css",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInDown
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutUp
+            animate__faster
+          `,
+        },
+      });
+      navigate(from, { replace: true });
+    });
+  };
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">
@@ -12,7 +48,7 @@ const Login = () => {
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm font-semibold">
               <h1 className="text-5xl text-center p-3 font-bold">Login now!</h1>
-              <form className="card-body">
+              <form onSubmit={handleLogin} className="card-body">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Email</span>
@@ -46,14 +82,15 @@ const Login = () => {
                     // disabled={disabled}
                     type="submit"
                     value="Sign in"
-                    className="btn bg-[#D1A054B2] text-white"
+                    className="btn bg-[#26DEBE] text-white"
                   />
                 </div>
               </form>
-              <p className="text-center text-[#D1A054B2] font-bold">
+              <p className="text-center text-blue-600 font-bold">
                 <Link to={"/signup"}>New here? Create a New Account</Link>
               </p>
               <p className="text-center font-semibold">Or sign in with</p>
+              <SocialLogin></SocialLogin>
             </div>
           </div>
         </div>
