@@ -67,7 +67,11 @@ const NavBar = () => {
                 <Lottie animationData={logo}></Lottie>
               </span>
             </button>
-            <p className="font-serif font-semibold italic text-xl"><span className="bg-gradient-to-r from-purple-500 via-red-500 to-red-500 text-transparent bg-clip-text">Fast Parcel</span></p>
+            <p className="font-serif font-semibold italic text-xl">
+              <span className="bg-gradient-to-r from-purple-500 via-red-500 to-red-500 text-transparent bg-clip-text">
+                Fast Parcel
+              </span>
+            </p>
           </div>
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -95,7 +99,9 @@ const NavBar = () => {
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 font-bold text-slate-500">{navLink}</ul>
+          <ul className="menu menu-horizontal px-1 font-bold text-slate-500">
+            {navLink}
+          </ul>
         </div>
         <div className="navbar-end">
           <details className="dropdown">

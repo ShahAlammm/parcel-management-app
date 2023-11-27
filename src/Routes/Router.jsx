@@ -7,6 +7,10 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import AllUsers from "../Pages/HomePage/Dashboard/Admin/AllUsers";
 import Bookings from "../Pages/HomePage/Dashboard/User/Bookings";
 import MyParcel from "../Pages/HomePage/Dashboard/User/MyParcel";
+import UpdateItem from "../Pages/HomePage/Dashboard/User/UpdateItem";
+import UserProfile from "../Pages/HomePage/Dashboard/User/UserProfile";
+import Statistics from "../Pages/HomePage/Dashboard/Admin/Statistics/Statistics";
+import AllParcel from "../Pages/HomePage/Dashboard/Admin/AllParcel/AllParcel";
 
 const Router = createBrowserRouter([
   {
@@ -32,12 +36,30 @@ const Router = createBrowserRouter([
     element: <DashboardLayout></DashboardLayout>,
     children: [
       {
+        path: "statistics",
+        element: <Statistics></Statistics>,
+      },
+      {
+        path: "allParcels",
+        element: <AllParcel></AllParcel>,
+      },
+      {
+        path: "profile",
+        element: <UserProfile></UserProfile>,
+      },
+      {
         path: "bookings",
         element: <Bookings></Bookings>,
       },
       {
         path: "myParcel",
         element: <MyParcel></MyParcel>,
+      },
+      {
+        path: "updateItem/:id",
+        element: <UpdateItem></UpdateItem>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:8000/bookings/${params.id}`),
       },
       {
         path: "users",

@@ -12,8 +12,10 @@ const ParcelForm = () => {
 
   //   Handle submit
   const onSubmit = async (data) => {
+    data.name = user.displayName,
     data.email = user.email;
     data.status = "pending";
+    data.bookingDate = currentDate,
     console.log("Form submitted:", data);
     const res = await axiosSecure.post("/bookings", data);
     if (res.data.acknowledged === true) {
@@ -55,7 +57,7 @@ const ParcelForm = () => {
       >
         <div className="form-control">
           <div className="lg:flex gap-10">
-            <div className="w-1/2 mb-4">
+            <div className="lg:w-1/2 mb-4">
               <label className="label">Name:</label>
               <input
                 type="text"
@@ -66,7 +68,7 @@ const ParcelForm = () => {
                 className="input input-bordered w-full"
               />
             </div>
-            <div className="w-1/2">
+            <div className="lg:w-1/2">
               <label className="label">Email:</label>
               <input
                 type="email"
@@ -81,7 +83,7 @@ const ParcelForm = () => {
 
           {/* Other Form Fields */}
           <div className="lg:flex gap-10">
-            <div className="mb-4 w-1/2">
+            <div className="mb-4 lg:w-1/2">
               <label className="label">Phone Number:</label>
               <input
                 type="tel"
@@ -95,7 +97,7 @@ const ParcelForm = () => {
               />
             </div>
 
-            <div className="mb-4 w-1/2">
+            <div className="mb-4 lg:w-1/2">
               <label className="label">Parcel Type:</label>
               <input
                 type="text"
@@ -111,7 +113,7 @@ const ParcelForm = () => {
           </div>
 
           <div className="lg:flex gap-10">
-            <div className="mb-4 w-1/2">
+            <div className="mb-4 lg:w-1/2">
               <label className="label">Receiver's Name:</label>
               <input
                 type="text"
@@ -125,7 +127,7 @@ const ParcelForm = () => {
               />
             </div>
 
-            <div className="mb-4 w-1/2">
+            <div className="mb-4 lg:w-1/2">
               <label className="label">Receiver's Phone Number:</label>
               <input
                 type="tel"
@@ -141,7 +143,7 @@ const ParcelForm = () => {
           </div>
 
           <div className="lg:flex gap-10">
-            <div className="mb-4 w-3/4">
+            <div className="mb-4 lg:w-3/4">
               <label className="label">Parcel Delivery Address:</label>
               <textarea
                 id="parcelDeliveryAddress"
@@ -154,7 +156,7 @@ const ParcelForm = () => {
               ></textarea>
             </div>
 
-            <div className="mb-4 w-1/4">
+            <div className="mb-4 lg:w-1/4">
               <label className="label">Requested Delivery Date:</label>
               <input
                 type="date"
@@ -171,7 +173,7 @@ const ParcelForm = () => {
           </div>
 
           <div className="lg:flex gap-10">
-            <div className="mb-4 w-1/2">
+            <div className="mb-4 lg:w-1/2">
               <label className="label">Delivery Address Latitude:</label>
               <input
                 type="number"
@@ -186,7 +188,7 @@ const ParcelForm = () => {
               />
             </div>
 
-            <div className="mb-4 w-1/2">
+            <div className="mb-4 lg:w-1/2">
               <label className="label">Delivery Address Longitude:</label>
               <input
                 type="number"

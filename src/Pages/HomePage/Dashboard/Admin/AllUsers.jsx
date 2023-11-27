@@ -24,7 +24,6 @@ const AllUsers = () => {
   const handleMakeDeliveryMan = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
       if (res.data.modifiedCount > 0) {
-        refetch();
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -32,6 +31,7 @@ const AllUsers = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        refetch();
       }
     });
   };

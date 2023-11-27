@@ -19,21 +19,11 @@ const Login = () => {
 
     signIn(email, password).then(() => {
       Swal.fire({
-        title: "Custom animation with Animate.css",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInDown
-            animate__faster
-          `,
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutUp
-            animate__faster
-          `,
-        },
+        position: "top-start",
+        icon: "success",
+        title: `Log In successfully`,
+        showConfirmButton: false,
+        timer: 1500,
       });
       navigate(from, { replace: true });
     });

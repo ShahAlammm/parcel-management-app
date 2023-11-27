@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   FaChartPie,
   FaClipboardCheck,
@@ -13,10 +13,23 @@ import {
 } from "react-icons/fa";
 import useAdmin from "../hooks/useAdmin";
 import useDeliveryMan from "../hooks/useDeliveryMan";
+import { useEffect } from "react";
 
 const DashboardLayout = () => {
   const [isAdmin] = useAdmin();
   const [isDeliveryMan] = useDeliveryMan();
+
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Navigate to the "statistics" route when entering "/dashboard"
+    navigate('/dashboard/statistics');
+    if(!isAdmin && !isDeliveryMan){
+      navigate('/dashboard/profile')
+    }
+  }, [navigate, isDeliveryMan,isAdmin]);
+
   return (
     <div className="flex container m-auto">
       <div className="w-40 md:w-72 min-h-screen bg-[#26DEBE]">
@@ -27,7 +40,7 @@ const DashboardLayout = () => {
           {isAdmin ? (
             <ul>
               <li className="text-black">
-                <NavLink to="/dashboard/admin">
+                <NavLink to="/dashboard/statistics">
                   <FaChartPie className="md:w-7 md:h-10"></FaChartPie>Statistics
                 </NavLink>
               </li>

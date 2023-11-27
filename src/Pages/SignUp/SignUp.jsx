@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 
 const SignUp = () => {
   const axiosPublic = useAxiosPublic();
-  
+
   const { createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const {
@@ -27,14 +27,15 @@ const SignUp = () => {
           const userInfo = {
             name: data.name,
             email: data.email,
+            image: data.photoURL,
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
               reset();
               Swal.fire({
-                position: "top-end",
+                position: "top-start",
                 icon: "success",
-                title: "Update user profile successfully",
+                title: "Sign Up successfully",
                 showConfirmButton: false,
                 timer: 2000,
               });
@@ -49,7 +50,6 @@ const SignUp = () => {
   };
   return (
     <>
-
       <div className="hero min-h-screen bg-base-200">
         <div className="shadow-2xl p-10">
           <div className="hero-content flex-col lg:flex-row-reverse">

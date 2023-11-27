@@ -1,6 +1,47 @@
-const ParcelCard = ({ item }) => {
-  const { parcelType, requestedDeliveryDate, status, price } = item || {};
+import { Link } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
+const ParcelCard = ({ item, refetch }) => {
+  const axiosSecure = useAxiosSecure();
+  const { parcelType, requestedDeliveryDate, status, price, _id } = item || {};
+
+  const handleDeleteItem = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/bookings/${_id}`);
+        if (res.data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your Parcel has been deleted.",
+            icon: "success",
+          });
+        }
+      }
+    });
+  };
+
+  const [rating, setRating] = useState("");
+
+  const handleInput = (event) => {
+    let inputValue = event.target.value;
+
+    if (/^[0-5]$/.test(inputValue)) {
+      setRating(inputValue);
+    } else {
+      setRating("");
+    }
+  };
   return (
     <div>
       <div className="cart items-start bg-base-200">
@@ -17,13 +58,18 @@ const ParcelCard = ({ item }) => {
               4. BookingDate : {requestedDeliveryDate}
             </h1>
             <h1 className="text-xl font-bold">5. Delivery Men ID : </h1>
-            <h1 className="text-xl font-bold">6. Booking Status : {status}</h1>
+            <h1 className="text-xl font-bold">
+              6. Booking Status : {status} ...
+            </h1>
             <h1 className="text-xl font-bold">7. Price : {price}</h1>
           </div>
           <div className="space-x-10 md:space-x-60 my-5">
             <div className="join join-vertical lg:join-horizontal">
               {status === "pending" ? (
-                <button className="btn bg-red-600 text-white join-item">
+                <button
+                  onClick={() => handleDeleteItem(item)}
+                  className="btn bg-red-600 text-white join-item"
+                >
                   CANCEL
                 </button>
               ) : (
@@ -35,9 +81,11 @@ const ParcelCard = ({ item }) => {
                 </button>
               )}
               {status === "pending" ? (
-                <button className="btn bg-indigo-700 text-white join-item">
-                  UPDATE
-                </button>
+                <Link to={`/dashboard/updateItem/${_id}`}>
+                  <button className="btn bg-indigo-700 text-white join-item">
+                    UPDATE
+                  </button>
+                </Link>
               ) : (
                 <button
                   disabled
@@ -46,9 +94,50 @@ const ParcelCard = ({ item }) => {
                   UPDATE
                 </button>
               )}
-              <button className="btn join-item bg-green-400 text-white">
-                REVIEW
-              </button>
+              {status === "delivered" ? (
+                <>
+                  <button
+                    className="btn join-item bg-green-400 text-white"
+                    onClick={() =>
+                      document.getElementById("my_modal_1").showModal()
+                    }
+                  >
+                    REVIEW
+                  </button>
+                  <dialog id="my_modal_1" className="modal">
+                    <form className="modal-box">
+                      <div>
+                        <h3 className="font-bold text-lg">Hello!</h3>
+                        <input
+                          type="number"
+                          name="rating"
+                          placeholder="Enter a rating (0-5)"
+                          min="0"
+                          max="5"
+                          step="1"
+                          value={rating}
+                          onInput={handleInput}
+                          className="input input-bordered w-full max-w-xs"
+                        />
+                        <button className="btn btn-secondary">submit</button>
+                        <div className="modal-action">
+                          <form method="dialog">
+                            {/* if there is a button in form, it will close the modal */}
+                            <button className="btn">Close</button>
+                          </form>
+                        </div>
+                      </div>
+                    </form>
+                  </dialog>
+                </>
+              ) : (
+                <button
+                  disabled
+                  className="btn join-item bg-green-400 text-white"
+                >
+                  REVIEW
+                </button>
+              )}
             </div>
           </div>
           <div className="divider divider-neutral"></div>
