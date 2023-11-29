@@ -17,7 +17,7 @@ const Statistics = () => {
   });
 
   const bookingsPerDay = items?.reduce((acc, item) => {
-    const date = item.requestedDeliveryDate;
+    const date = item?.requestedDeliveryDate;
     const existingEntry = acc.find((entry) => entry.date === date);
 
     if (existingEntry) {

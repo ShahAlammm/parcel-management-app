@@ -11,6 +11,8 @@ import UpdateItem from "../Pages/HomePage/Dashboard/User/UpdateItem";
 import UserProfile from "../Pages/HomePage/Dashboard/User/UserProfile";
 import Statistics from "../Pages/HomePage/Dashboard/Admin/Statistics/Statistics";
 import AllParcel from "../Pages/HomePage/Dashboard/Admin/AllParcel/AllParcel";
+import DeliveryMan from "../Pages/HomePage/Dashboard/DeliveryMan/DeliveryMan";
+import MyDelivery from "../Pages/HomePage/Dashboard/DeliveryMan/MyDelivery";
 
 const Router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const Router = createBrowserRouter([
       {
         path: "allParcels",
         element: <AllParcel></AllParcel>,
+      },
+      {
+        path: "deliveryMan",
+        element: <DeliveryMan></DeliveryMan>,
+      },
+      {
+        path: "myDelivery",
+        element: <MyDelivery></MyDelivery>,
       },
       {
         path: "profile",

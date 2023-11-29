@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const ParcelCard = ({ item, refetch }) => {
   const axiosSecure = useAxiosSecure();
-  const { parcelType, requestedDeliveryDate, status, price, _id } = item || {};
+  const { parcelType, requestedDeliveryDate, status, price, _id, deliveryManId } = item || {};
 
   const handleDeleteItem = () => {
     Swal.fire({
@@ -57,7 +57,7 @@ const ParcelCard = ({ item, refetch }) => {
             <h1 className="text-xl font-bold">
               4. BookingDate : {requestedDeliveryDate}
             </h1>
-            <h1 className="text-xl font-bold">5. Delivery Men ID : </h1>
+            <h1 className="text-xl font-bold">5. Delivery Men ID : {deliveryManId}</h1>
             <h1 className="text-xl font-bold">
               6. Booking Status : {status} ...
             </h1>

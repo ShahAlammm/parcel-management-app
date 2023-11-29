@@ -19,15 +19,15 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    createUser(data.email, data.password).then((result) => {
-      const logger = result.user;
-      console.log(logger);
+    createUser(data.email, data.password)
+    .then(() => {
       updateUserProfile(data.name, data.photoURL)
         .then(() => {
           const userInfo = {
             name: data.name,
             email: data.email,
             image: data.photoURL,
+            phoneNumber: data.phoneNumber,
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             if (res.data.insertedId) {
@@ -86,6 +86,21 @@ const SignUp = () => {
                   />
                   {errors.photoURL?.type === "required" && (
                     <p className="text-red-600">Photo URL is required</p>
+                  )}
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Phone Number</span>
+                  </label>
+                  <input
+                    type="number"
+                    name="phoneNumber"
+                    {...register("phoneNumber", { required: true })}
+                    placeholder="Phone Number"
+                    className="input input-bordered"
+                  />
+                  {errors.email?.type === "required" && (
+                    <p className="text-red-600">Email is required</p>
                   )}
                 </div>
                 <div className="form-control">

@@ -10,25 +10,19 @@ const useAxiosSecure = () => {
   const navigate = useNavigate();
   const { logOut } = useAuth();
 
-  // Request interceptor to add authorization header for every secure call to the API
+  // request interceptor to add authorization header for every secure call to the API
   axiosSecure.interceptors.request.use(
     function (config) {
       const token = localStorage.getItem("access-token");
-
-      // Check if the token is present before adding it to the headers
-      if (token) {
-        config.headers.authorization = `Bearer ${token}`;
-      }
-
+      config.headers.authorization = `Bearer ${token}`;
       return config;
     },
     function (error) {
-      // Do something with request error
       return Promise.reject(error);
     }
   );
 
-  // Response interceptor to handle 401 or 403 status codes
+  // intercepts 401 and 403 status
   axiosSecure.interceptors.response.use(
     function (response) {
       return response;
@@ -36,10 +30,13 @@ const useAxiosSecure = () => {
     async (error) => {
       const status = error.response.status;
 
-      // For 401 or 403, log out the user and redirect to the login page
       if (status === 401 || status === 403) {
-        await logOut();
-        navigate("/login");
+        
+        console.error("Unauthorized or forbidden request:", error);
+
+      } else {
+        // Handle other errors as needed
+        console.error("Other error:", error);
       }
 
       return Promise.reject(error);

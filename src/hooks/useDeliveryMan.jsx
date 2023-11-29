@@ -9,7 +9,6 @@ const useDeliveryMan = () => {
     queryKey: [user?.email, "deliveryMan"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/deliveryMan/${user.email}`);
-      // console.log(res.data);
       return res.data?.deliveryMan;
     },
   });

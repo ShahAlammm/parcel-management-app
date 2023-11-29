@@ -8,7 +8,6 @@ import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 const UpdateItem = () => {
   const item = useLoaderData();
   const { user } = useAuth();
-
   const {
     parcelType,
     requestedDeliveryDate,
@@ -26,6 +25,7 @@ const UpdateItem = () => {
 
 
   const axiosSecure = useAxiosSecure();
+
 
   const { handleSubmit, setValue, register, reset } = useForm();
 

@@ -6,6 +6,8 @@ import ParcelMan from "../ParcelMan/ParcelMan";
 import NumberCount from "../../../Components/Statistic/NumberCount";
 import Map from "../../../Components/Map/Map";
 const Home = () => {
+
+
   return (
     <div>
       <Banner></Banner>

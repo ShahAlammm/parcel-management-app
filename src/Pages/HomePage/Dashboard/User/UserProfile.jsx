@@ -5,24 +5,27 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const UserProfile = () => {
+
   const { user } = useAuth();
   const { displayName, email } = user || {};
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   const { register, handleSubmit } = useForm();
 
-  const { data: userData = [], refetch } = useQuery({
+  const { data: userData=[] , refetch } = useQuery({
     queryKey: ["users", email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/users/${email}`);
       return res.data;
     },
   });
+
 
   const onSubmit = async (data) => {
     const imageFile = { image: data.image[0] };
@@ -38,7 +41,6 @@ const UserProfile = () => {
       };
 
       const res = await axiosPublic.patch(`/users/${email}`, menuItem);
-      console.log(res.data, email);
       if (res.data.modifiedCount > 0) {
         // show success
         Swal.fire({
@@ -52,13 +54,15 @@ const UserProfile = () => {
       }
     }
   };
+
+
   return (
     <div className="w-full h-screen container m-auto">
       <SectionTitle heading={"welcome"}></SectionTitle>
       <div className="flex flex-col items-center pb-10">
         <img
           className="w-40 h-40 mb-3 rounded-full shadow-lg"
-          src={userData.image}
+          src={userData[0]?.image}
         />
         {/* Open the modal using document.getElementById('ID').showModal() method */}
         <button

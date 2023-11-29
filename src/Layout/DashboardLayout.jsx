@@ -19,20 +19,23 @@ const DashboardLayout = () => {
   const [isAdmin] = useAdmin();
   const [isDeliveryMan] = useDeliveryMan();
 
-
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Navigate to the "statistics" route when entering "/dashboard"
-    navigate('/dashboard/statistics');
-    if(!isAdmin && !isDeliveryMan){
-      navigate('/dashboard/profile')
+    if (!isDeliveryMan) {
+      navigate("/dashboard/statistics");
     }
-  }, [navigate, isDeliveryMan,isAdmin]);
+    if (!isAdmin && !isDeliveryMan) {
+      navigate("/dashboard/profile");
+    }
+  }, [navigate, isDeliveryMan, isAdmin]);
 
   return (
     <div className="flex container m-auto">
-      <div className="w-40 md:w-72 min-h-screen bg-[#26DEBE]">
+      <div
+        style={{ backgroundImage: "url(https://i.ibb.co/J2q5qBj/img4.jpg)" }}
+        className="w-40 md:w-72 min-h-screen bg-cover"
+      >
         <h1 className="md:text-3xl mt-14 uppercase md:p-5 text-center text-black font-serif font-bold">
           Fast Parcel
         </h1>
@@ -51,7 +54,7 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
               <li className="text-black">
-                <NavLink to="/dashboard/booking">
+                <NavLink to="/dashboard/deliveryMan">
                   <FaWalking className="md:w-7 md:h-10"></FaWalking>All Delivery
                   Men
                 </NavLink>
@@ -65,12 +68,13 @@ const DashboardLayout = () => {
           ) : isDeliveryMan ? (
             <ul>
               <li className="text-black">
-                <NavLink to="/dashboard/booking">
-                  <FaListUl className="md:w-7 md:h-10"></FaListUl>My Delivery List
+                <NavLink to="/dashboard/myDelivery">
+                  <FaListUl className="md:w-7 md:h-10"></FaListUl>My Delivery
+                  List
                 </NavLink>
               </li>
               <li className="text-black">
-                <NavLink to="/dashboard/booking">
+                <NavLink to="/dashboard/">
                   <FaStar className="md:w-7 md:h-10"></FaStar>My Reviews
                 </NavLink>
               </li>
@@ -84,12 +88,14 @@ const DashboardLayout = () => {
               </li>
               <li className="text-black">
                 <NavLink to="/dashboard/bookings">
-                  <FaListAlt className="md:w-7 md:h-10"></FaListAlt>Book a Parcel
+                  <FaListAlt className="md:w-7 md:h-10"></FaListAlt>Book a
+                  Parcel
                 </NavLink>
               </li>
               <li className="text-black">
                 <NavLink to="/dashboard/myParcel">
-                  <FaClipboardCheck className="md:w-7 md:h-10"></FaClipboardCheck>My Parcels
+                  <FaClipboardCheck className="md:w-7 md:h-10"></FaClipboardCheck>
+                  My Parcels
                 </NavLink>
               </li>
             </ul>
@@ -110,7 +116,7 @@ const DashboardLayout = () => {
           </li>
         </ul>
       </div>
-      <div className="flex-1 p-10">
+      <div className="flex-1 p-10 bg-cover bg-opacity-80">
         <Outlet></Outlet>
       </div>
     </div>

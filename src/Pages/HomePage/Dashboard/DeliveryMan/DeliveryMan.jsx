@@ -1,51 +1,26 @@
-import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
 
-const AllUsers = () => {
+const DeliveryMan = () => {
+  
   const axiosSecure = useAxiosSecure();
+
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
+
+      // Filter users based on role (modify as needed)
       const filteredUsers = res.data.filter(
-        (user) => user.role !== "deliveryMan"
+        (user) => user.role === "deliveryMan"
       );
 
       return filteredUsers;
     },
   });
-
-  const handleMakeAdmin = (user) => {
-    axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-      if (res.data.modifiedCount > 0) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: `${user.name} is an Admin now!`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        refetch();
-      }
-    });
-  };
-  const handleMakeDeliveryMan = (user) => {
-    axiosSecure.patch(`/users/deliveryMan/${user._id}`).then((res) => {
-      if (res.data.modifiedCount > 0) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: `${user.name} is a Delivery Man now!`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        refetch();
-      }
-    });
-  };
 
   const handleDeleteUser = (user) => {
     Swal.fire({
@@ -71,10 +46,11 @@ const AllUsers = () => {
       }
     });
   };
+
   return (
     <div>
       <div>
-        <SectionTitle heading={"MANAGE ALL USERS"}></SectionTitle>
+        <SectionTitle heading={"MANAGE Delivery man"}></SectionTitle>
       </div>
       <div>
         <h1 className="text-3xl font-bold mb-4">Total User : {users.length}</h1>
@@ -86,7 +62,9 @@ const AllUsers = () => {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Email</th>
+              <th>Phone Number</th>
+              <th>parcel delivered</th>
+              <th>review</th>
               <th>Role</th>
               <th>Action</th>
             </tr>
@@ -97,28 +75,15 @@ const AllUsers = () => {
               <tr key={user._id} className="font-semibold">
                 <th>{index + 1}</th>
                 <td>{user.name}</td>
-                <td>{user.email}</td>
+                <td>{user.phoneNumber}</td>
+                <td>{user.parcelsDelivered}</td>
+                <td>{user.averageRatings}</td>
                 <td>
-                  {user.role === "deliveryMan" ? (
-                    "Delivery Man"
-                  ) : user.role === "admin" ? (
-                    "Admin"
-                  ) : (
-                    <div className="space-x-2">
-                      <button
-                        onClick={() => handleMakeDeliveryMan(user)}
-                        className="btn bg-[#26DEBE] text-white uppercase"
-                      >
-                        delivery man
-                      </button>
-                      <button
-                        onClick={() => handleMakeAdmin(user)}
-                        className="btn btn-secondary text-white uppercase"
-                      >
-                        make admin
-                      </button>
-                    </div>
-                  )}
+                  {user.role === "deliveryMan"
+                    ? "Delivery Man"
+                    : user.role === "admin"
+                    ? "Admin"
+                    : ""}
                 </td>
                 <td>
                   <button
@@ -137,4 +102,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default DeliveryMan;
