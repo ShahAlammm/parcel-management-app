@@ -39,12 +39,12 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
-          to="/menu"
+          to="/blog"
           className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "bg-yellow-400" : ""
           }
         >
-          Our Menu
+          Blog
         </NavLink>
       </li>
     </>
@@ -69,7 +69,7 @@ const NavBar = () => {
             </button>
             <p className="font-serif font-semibold italic text-xl">
               <span className="bg-gradient-to-r from-purple-500 via-red-500 to-red-500 text-transparent bg-clip-text">
-                Fast Parcel
+              Delivery Express
               </span>
             </p>
           </div>

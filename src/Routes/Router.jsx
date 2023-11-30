@@ -13,6 +13,7 @@ import Statistics from "../Pages/HomePage/Dashboard/Admin/Statistics/Statistics"
 import AllParcel from "../Pages/HomePage/Dashboard/Admin/AllParcel/AllParcel";
 import DeliveryMan from "../Pages/HomePage/Dashboard/DeliveryMan/DeliveryMan";
 import MyDelivery from "../Pages/HomePage/Dashboard/DeliveryMan/MyDelivery";
+import BlogPage from "../Pages/BlogPage/BlogPage";
 
 const Router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const Router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "blog",
+        element: <BlogPage></BlogPage>,
       },
       {
         path: "login",
