@@ -22,8 +22,9 @@ const DashboardLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isDeliveryMan) {
-      navigate("/dashboard/statistics");
+    navigate("/dashboard/statistics");
+    if (isDeliveryMan) {
+      navigate("/dashboard/myDelivery");
     }
     if (!isAdmin && !isDeliveryMan) {
       navigate("/dashboard/profile");
@@ -74,7 +75,7 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
               <li className="text-black">
-                <NavLink to="/dashboard/">
+                <NavLink to="/dashboard/review">
                   <FaStar className="md:w-7 md:h-10"></FaStar>My Reviews
                 </NavLink>
               </li>

@@ -2,10 +2,19 @@ import { Link } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const ParcelCard = ({ item, refetch }) => {
+  const {user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { parcelType, requestedDeliveryDate, status, price, _id, deliveryManId } = item || {};
+  const {
+    parcelType,
+    requestedDeliveryDate,
+    status,
+    price,
+    _id,
+    deliveryManId,
+  } = item || {};
 
   const handleDeleteItem = () => {
     Swal.fire({
@@ -42,6 +51,28 @@ const ParcelCard = ({ item, refetch }) => {
       setRating("");
     }
   };
+
+  const handleReviewSubmit = async (event) => {
+    event.preventDefault();
+    const res = await axiosSecure.post(`/reviews`, {
+      parcelId: item._id,
+      reviewerEmail: user.email,
+      reviewerName: user.name,
+      rating: Number(rating),
+      reviewDate: requestedDeliveryDate,
+    });
+    if(res.data.acknowledged === true){
+      Swal.fire({
+        position: "top-start",
+        icon: "success",
+        title: `Added review successfully`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      refetch()
+      setRating(' ')
+    }
+  };
   return (
     <div>
       <div className="cart items-start bg-base-200">
@@ -57,7 +88,9 @@ const ParcelCard = ({ item, refetch }) => {
             <h1 className="text-xl font-bold">
               4. BookingDate : {requestedDeliveryDate}
             </h1>
-            <h1 className="text-xl font-bold">5. Delivery Men ID : {deliveryManId}</h1>
+            <h1 className="text-xl font-bold">
+              5. Delivery Men ID : {deliveryManId}
+            </h1>
             <h1 className="text-xl font-bold">
               6. Booking Status : {status} ...
             </h1>
@@ -105,9 +138,11 @@ const ParcelCard = ({ item, refetch }) => {
                     REVIEW
                   </button>
                   <dialog id="my_modal_1" className="modal">
-                    <form className="modal-box">
+                    <form onSubmit={handleReviewSubmit} className="modal-box">
                       <div>
-                        <h3 className="font-bold text-lg">Hello!</h3>
+                        <h3 className="font-bold text-lg mb-5">
+                          Give your Review
+                        </h3>
                         <input
                           type="number"
                           name="rating"
@@ -117,7 +152,7 @@ const ParcelCard = ({ item, refetch }) => {
                           step="1"
                           value={rating}
                           onInput={handleInput}
-                          className="input input-bordered w-full max-w-xs"
+                          className="input input-bordered w-full max-w-xs mr-5"
                         />
                         <button className="btn btn-secondary">submit</button>
                         <div className="modal-action">

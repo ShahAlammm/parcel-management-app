@@ -2,14 +2,14 @@
 const BlogPage = () => {
   const blogData = {
     title: 'Revolutionizing Parcel Delivery with Delivery Express',
-    author: 'Shah Alam',
+    author: 'Jane Smith',
     date: 'December 10, 2023',
     content: `
       <p>Welcome to the exciting world of Delivery Express, where parcel delivery is redefined for efficiency and convenience.</p>
       <p>In this blog post, we'll explore the key features that make Delivery Express stand out in the crowded delivery app market.</p>
       <br/>
       <h2}>User-Friendly Navigation :</h2$>
-      
+
       <p>Our app boasts a sleek and intuitive navigation bar, providing users with easy access to essential features. The dynamic navbar adapts to the user's status, showing profile information for logged-in users.</p>
       <br/>
       <h2>Features Showcase :</h2>

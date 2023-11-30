@@ -2,8 +2,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 import useAuth from "./useAuth";
+import useAxiosPublic from "./useAxiosPublic";
 
 const useBookings = () => {
+
+  const axiosPublic = useAxiosPublic()
   const axiosSecure = useAxiosSecure();
 const {user} = useAuth()
   // Use useQuery hook to fetch data

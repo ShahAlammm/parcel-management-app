@@ -14,11 +14,15 @@ import AllParcel from "../Pages/HomePage/Dashboard/Admin/AllParcel/AllParcel";
 import DeliveryMan from "../Pages/HomePage/Dashboard/DeliveryMan/DeliveryMan";
 import MyDelivery from "../Pages/HomePage/Dashboard/DeliveryMan/MyDelivery";
 import BlogPage from "../Pages/BlogPage/BlogPage";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import Review from "../Pages/HomePage/Dashboard/DeliveryMan/Review";
+import Error from "../Pages/Error/Error";
 
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
@@ -27,6 +31,10 @@ const Router = createBrowserRouter([
       {
         path: "blog",
         element: <BlogPage></BlogPage>,
+      },
+      {
+        path: "aboutUs",
+        element: <AboutUs></AboutUs>,
       },
       {
         path: "login",
@@ -41,6 +49,7 @@ const Router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "statistics",
@@ -57,6 +66,10 @@ const Router = createBrowserRouter([
       {
         path: "myDelivery",
         element: <MyDelivery></MyDelivery>,
+      },
+      {
+        path: "review",
+        element: <Review></Review>,
       },
       {
         path: "profile",

@@ -1,20 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import Card from "../../../Components/Card/Card";
 import ParcelHero from "../../../Components/ParcelHero/ParcelHero";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ParcelMan = () => {
-  const axiosPublic = useAxiosPublic();
-  const {
-    data: menu = [],
-    isPending: loading,
-    refetch,
-  } = useQuery({
-    queryKey: ["deliveryMan"],
+  const axiosSecure = useAxiosSecure();
+
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosPublic.get("/deliveryMan");
-      return res.data;
+      const res = await axiosSecure.get("/users");
+
+      // Filter users based on role (modify as needed)
+      const filteredUsers = res.data.filter(
+        (user) => user.role === "deliveryMan"
+      );
+
+      return filteredUsers;
     },
   });
   return (
@@ -24,7 +27,7 @@ const ParcelMan = () => {
       </div>
       <div className="container m-auto pb-20 pt-12 md:px-36 px-10 gap-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
-          {menu.map((item) => (
+          {users.slice(0,5).map((item) => (
             <Card key={item._id} item={item}></Card>
           ))}
         </div>
