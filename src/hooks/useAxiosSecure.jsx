@@ -31,8 +31,10 @@ const useAxiosSecure = () => {
       const status = error.response.status;
 
       if (status === 401 || status === 403) {
-        
+
         console.error("Unauthorized or forbidden request:", error);
+        logOut()
+        navigate('/')
 
       } else {
         // Handle other errors as needed

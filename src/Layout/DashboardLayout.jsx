@@ -111,7 +111,7 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
           <li className="text-black">
-            <NavLink to="/contact">
+            <NavLink to="/aboutUs">
               <FaEnvelope className="md:w-7 md:h-10"></FaEnvelope>contact
             </NavLink>
           </li>

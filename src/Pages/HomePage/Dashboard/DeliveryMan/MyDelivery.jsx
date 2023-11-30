@@ -29,10 +29,7 @@ const MyDelivery = () => {
       booking.deliveryManId === (deliveryMan ? deliveryMan._id : null)
   );
 
-  // Display the filtered bookings
-  console.log(forDeliveryMan,bookings);
-
-  // console.log(user.email, bookings,users)
+  
 
   const handleDeleteItem = () => {
     Swal.fire({

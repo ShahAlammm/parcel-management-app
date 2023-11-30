@@ -37,7 +37,7 @@ const NumberCount = () => {
                       duration={10}
                       className="stat-value counter text-secondary"
                       start={1000}
-                      end={appStats.bookedParcels}
+                      end={appStats.bookedParcels || 8}
                     ></CountUp>
                     K
                   </div>
@@ -51,7 +51,7 @@ const NumberCount = () => {
                       duration={10}
                       className="stat-value counter text-secondary"
                       start={1000}
-                      end={appStats.deliveredParcels}
+                      end={appStats.deliveredParcels || 7.2}
                     ></CountUp>
                     K
                   </div>
@@ -65,7 +65,7 @@ const NumberCount = () => {
                       duration={10}
                       className="stat-value counter text-secondary"
                       start={1000}
-                      end={appStats.registeredUsers}
+                      end={appStats.registeredUsers || 10}
                     ></CountUp>
                     K
                   </div>

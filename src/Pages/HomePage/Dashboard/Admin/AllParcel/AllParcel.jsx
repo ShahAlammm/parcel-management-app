@@ -7,13 +7,31 @@ import { useForm } from "react-hook-form";
 
 const AllParcel = () => {
   const [manage, setManage] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
   const axiosSecure = useAxiosSecure();
 
   const { data: books = [], refetch } = useQuery({
-    queryKey: ["bookings"],
+    queryKey: ["bookings"], // Updated key to differentiate from regular bookings
     queryFn: async () => {
-      const res = await axiosSecure.get("/bookings");
-      return res.data;
+      try {
+        const token = localStorage.getItem("access-token"); // Replace with your admin token
+        const response = await axiosSecure.get("/bookings", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch admin bookings data');
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching admin bookings data:', error.message);
+      }
     },
   });
 
@@ -67,6 +85,10 @@ const AllParcel = () => {
       refetch();
     }
   };
+
+  const handleSearch = () => {
+    refetch();
+  };
   return (
     <div>
       <div>
@@ -78,18 +100,20 @@ const AllParcel = () => {
             Total User : {books.length}
           </h1>
         </div>
-        <div className="join">
-          <div>
-            <div>
-              <input
-                className="input input-bordered join-item md:w-96"
-                placeholder="Search"
-              />
-            </div>
-          </div>
-          <div className="indicator">
-            <button className="btn bg-[#26DEBE]">Search</button>
-          </div>
+        <div className="border-2 rounded-2xl px-2">
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+          <button onClick={handleSearch} className="btn btn-secondary">
+            Search
+          </button>
         </div>
       </div>
       <div className="overflow-x-auto rounded-xl">

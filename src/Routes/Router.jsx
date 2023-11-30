@@ -17,6 +17,7 @@ import BlogPage from "../Pages/BlogPage/BlogPage";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import Review from "../Pages/HomePage/Dashboard/DeliveryMan/Review";
 import Error from "../Pages/Error/Error";
+import Payment from "../Pages/Payment/Payment";
 
 const Router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ const Router = createBrowserRouter([
       {
         path: "users",
         element: <AllUsers></AllUsers>,
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
       },
     ],
   },

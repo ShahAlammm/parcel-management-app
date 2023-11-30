@@ -1,11 +1,13 @@
-import { FaTrashAlt, FaUsers } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import SectionTitle from "../../../../Components/SectionTitle/SectionTitle";
-
+import { useState } from "react";
+const PAGE_SIZE = 5;
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -17,6 +19,13 @@ const AllUsers = () => {
       return filteredUsers;
     },
   });
+
+  const totalPages = Math.ceil(users.length / PAGE_SIZE);
+
+  const paginatedUsers = users.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
 
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
@@ -71,6 +80,10 @@ const AllUsers = () => {
       }
     });
   };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
   return (
     <div>
       <div>
@@ -93,7 +106,7 @@ const AllUsers = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {users?.map((user, index) => (
+            {paginatedUsers?.map((user, index) => (
               <tr key={user._id} className="font-semibold">
                 <th>{index + 1}</th>
                 <td>{user.name}</td>
@@ -132,6 +145,24 @@ const AllUsers = () => {
             ))}
           </tbody>
         </table>
+
+        <div className="text-center mt-20 space-x-4">
+          <button
+            className="btn btn-primary"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span>{` ${currentPage} of ${totalPages}`}</span>
+          <button
+            className="btn btn-primary"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

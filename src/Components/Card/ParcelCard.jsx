@@ -5,7 +5,7 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
 const ParcelCard = ({ item, refetch }) => {
-  const {user } = useAuth();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const {
     parcelType,
@@ -41,7 +41,7 @@ const ParcelCard = ({ item, refetch }) => {
   };
 
   const [rating, setRating] = useState("");
-
+  const [feedback, setFeedback] = useState("");
   const handleInput = (event) => {
     let inputValue = event.target.value;
 
@@ -52,16 +52,22 @@ const ParcelCard = ({ item, refetch }) => {
     }
   };
 
+  const handleFeedbackChange = (event) => {
+    setFeedback(event.target.value); // Update the feedback state on input change
+  };
+
   const handleReviewSubmit = async (event) => {
     event.preventDefault();
+
     const res = await axiosSecure.post(`/reviews`, {
       parcelId: item._id,
       reviewerEmail: user.email,
-      reviewerName: user.name,
+      reviewerName: user.displayName,
       rating: Number(rating),
       reviewDate: requestedDeliveryDate,
+      feedback: feedback,
     });
-    if(res.data.acknowledged === true){
+    if (res.data.acknowledged === true) {
       Swal.fire({
         position: "top-start",
         icon: "success",
@@ -69,8 +75,9 @@ const ParcelCard = ({ item, refetch }) => {
         showConfirmButton: false,
         timer: 1500,
       });
-      refetch()
-      setRating(' ')
+      refetch();
+      setRating(" ");
+      setFeedback(" ");
     }
   };
   return (
@@ -152,7 +159,15 @@ const ParcelCard = ({ item, refetch }) => {
                           step="1"
                           value={rating}
                           onInput={handleInput}
-                          className="input input-bordered w-full max-w-xs mr-5"
+                          className="input input-bordered w-full max-w-xs mb-5"
+                        />
+                        <input
+                          className="input input-bordered input-lg w-full max-w-xs  mr-5"
+                          type="text"
+                          name="text"
+                          placeholder="Feedback"
+                          value={feedback} // Bind the input value to the feedback state
+                          onChange={handleFeedbackChange}
                         />
                         <button className="btn btn-secondary">submit</button>
                         <div className="modal-action">
@@ -176,7 +191,7 @@ const ParcelCard = ({ item, refetch }) => {
             </div>
           </div>
           <div className="divider divider-neutral"></div>
-          <button className="btn bg-[#26DEBE] font-bold">Pay Now</button>
+          <Link to={'/dashboard/payment'}><button className="btn bg-[#26DEBE] font-bold">Pay Now</button></Link>
         </div>
       </div>
     </div>
