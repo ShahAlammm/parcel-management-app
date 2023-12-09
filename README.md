@@ -64,4 +64,15 @@ Welcome to Delivery Express, your go-to platform for efficient and secure parcel
 
 Delivery Express is not just an app; it's a complete ecosystem for efficient, secure, and user-friendly parcel delivery. Join us in revolutionizing the delivery experience!
 
+## Uses Technology
+
+- **React**
+- **HTML5**
+- **Tailwind css**
+- **Vite**
+- **TenStack**
+- **MongoDB**
+- **JWT Token**
+- **Express**
+
 ##  [Live link](https://parcel-management-app-c9005.web.app/)
